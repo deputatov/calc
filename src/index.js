@@ -5,8 +5,10 @@ const state = {
 };
 
 const updateDisplay = () => {
-  const display = document.querySelector('.screen');
-  display.value = state.number || state.storedNumber;
+  // const display = document.querySelector('.screen');
+  // display.value = state.number || state.storedNumber;
+  const display = document.querySelector('h2');
+  display.innerHTML = state.number || state.storedNumber;
 };
 
 const handleClearValue = () => {
@@ -64,8 +66,8 @@ const handleBackButton = () => {
   const { number } = state;
   if (number !== '') {
     state.number = number.slice(0, number.length - 1);
+    updateDisplay();
   }
-  updateDisplay();
 };
 
 const doMath = () => {
