@@ -4,10 +4,16 @@ const state = {
   functionType: '',
 };
 
+const updateDisplay = () => {
+  const display = document.querySelector('.screen');
+  display.value = state.number || state.storedNumber;
+};
+
 const handleClearValue = () => {
   state.number = '';
   state.storedNumber = '';
   state.functionType = '';
+  updateDisplay();
 };
 
 const handleSetDisplayValue = (currNum) => {
@@ -15,12 +21,14 @@ const handleSetDisplayValue = (currNum) => {
   if ((!number.includes('.') || currNum !== '.') && number.length < 8) {
     state.number = `${(number + currNum).replace(/^0+/, '')}`;
   }
+  updateDisplay();
 };
 
 const handleSetStoredValue = () => {
   const { number } = state;
   state.storedNumber = number;
   state.number = '';
+  updateDisplay();
 };
 
 const handleSetCalcFunction = (type) => {
@@ -32,7 +40,6 @@ const handleSetCalcFunction = (type) => {
   if (storedNumber) {
     state.functionType = type;
   }
-  console.log(state);
 };
 
 const handleToggleNegative = () => {
@@ -50,6 +57,7 @@ const handleToggleNegative = () => {
     const positiveNumber = storedNumber.slice(1);
     state.storedNumber = positiveNumber;
   }
+  updateDisplay();
 };
 
 const handleBackButton = () => {
@@ -57,6 +65,7 @@ const handleBackButton = () => {
   if (number !== '') {
     state.number = number.slice(0, number.length - 1);
   }
+  updateDisplay();
 };
 
 const doMath = () => {
@@ -79,8 +88,8 @@ const doMath = () => {
         break;
     }
     state.number = '';
+    updateDisplay();
   }
-  console.log(state);
 };
 
 const buttons = document.querySelectorAll('.number');
